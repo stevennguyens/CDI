@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using CDI.Models;
 
-namespace CDI;
+namespace CDI.Data;
 
 public partial class ChronicDiseaseIndicatorContext : DbContext
 {

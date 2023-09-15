@@ -20,6 +20,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDbContext>(opt => opt.UseNpgsql(builder.Configuration["DefaultConnection"]));
+builder.Services.AddDbContext<ChronicDiseaseIndicatorContext>(opt => opt.UseNpgsql(builder.Configuration["DefaultConnection"]));
 
 var app = builder.Build();
 
