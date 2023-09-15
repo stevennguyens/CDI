@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 export const Home = () => {
 
-  useEffect(() => {
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
   const getData = async () => {
     const response = await fetch("https://localhost:7080/api/notes");
     const data = await response.json();
