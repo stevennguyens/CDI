@@ -1,0 +1,19 @@
+﻿header {
+  background: var(--blue);
+  color: var(--white);
+  padding: 20px 0px;
+  text-align: center;
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      color: var(--light-grey);
+    }
+  }
+  h6 {
+    font-size: 1.5rem;
+    font-weight: 900;
+  }
+}
+

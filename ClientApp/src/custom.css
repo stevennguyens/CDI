@@ -1,3 +1,18 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --blue: rgb(10, 106, 158);
+  --dark-blue: rgb(14, 93, 135);
+  --white: #fdfdfd;
+  --grey: rgb(180, 180, 180);
+  --light-grey: rgb(215, 215, 215);
+  --light-grey-2: rgba(229, 229, 229, 0.553);
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -15,4 +30,17 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+.layout {
+  padding: 30px 50px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  outline: none
 }

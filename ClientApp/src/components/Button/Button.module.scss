@@ -1,0 +1,22 @@
+.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px;
+    cursor: pointer;
+    color: var(--white);
+}
+
+.filterBtn {
+    background: var(--blue);
+    &:hover {
+        background: var(--dark-blue);
+    }
+}
+
+.loadMoreBtn {
+    background: var(--grey);
+    &:hover {
+        background: var(--light-grey);
+    }
+}
+

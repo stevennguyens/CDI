@@ -1,0 +1,23 @@
+.filterDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .minmax {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        & > div {
+            margin-top: 6px;
+            p {
+                font-size: .9rem;
+                line-height: .3;
+            }
+        }
+        
+    }
+
+    button {
+        margin-top: 15px;
+    }
+}
