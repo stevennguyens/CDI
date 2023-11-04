@@ -1,30 +1,7 @@
-export type Cdi = {
-    id: number,
-    yearstart: number,
-    yearend: number,
-    locationabbr: string,
-    locationname: string,
-    topic: string,
-    question: string,
-    datavalueunit: string,
-    datavaluetype: string,
-    datavalue: string,
-    stratcategoryone: string,
-    stratone: string,
-    geolocation: string,
-    locationid: number,
-    topicid: string,
-    questionid: string,
-    datavaluetypeid: string,
-    stratcategoryoneid: string,
-    stratidone: string
-}
-
 // GET all cdis
 export const getCdis = async () => {
     const response = await fetch("https://localhost:7080/api/cdis");
     const data = await response.json();
-    console.log(data.length)
     return data
 }
 
@@ -43,24 +20,28 @@ export const getCdi = async (id: number) => {
 }
 
 // UPDATE cdi
-export const updateCdi = async (id: number, newCdi: BodyInit) => {
-    const response = await fetch(`https://localhost:7080/api/cdis/${id}`,
+export const updateCdi = async (id: string, searchParams:string) => {
+    const response = await fetch(`https://localhost:7080/api/cdis/edit/${id}?${searchParams}`,
     {
         method: 'PUT',
-        body: newCdi,
     });
-    const data = await response.json();
-    return data
+    if (response.status != 200) {
+        const data = await response.json();
+        console.log(data)
+        return data
+    }  else {
+        return response.status
+    }
 }
 
 // ADD new cdi 
-export const addCdi = async (newCdi: BodyInit) => {
-    const response = await fetch(`https://localhost:7080/api/cdis`,
+export const addCdi = async (searchParams: string) => {
+    const response = await fetch(`https://localhost:7080/api/cdis/add?${searchParams}`,
     {
         method: 'POST',
-        body: newCdi
     });
     const data = await response.json();
+    console.log(data)
     return data
 }
 

@@ -1,16 +1,26 @@
 import React from "react";
-import { Cdi } from "../../data/cdi";
+import { Cdi } from "../../types/CdiType";
 import styles from "./ListItem.module.scss";
+import { Link } from "react-router-dom";
 
 const ListItem = ({item} : {item: Cdi}) => {
     return (
         <div className={styles.listItem}>
-            <h5 className={styles.topic}>{item.topic} ({item.locationabbr})</h5>
+            <div className={styles.listItemHeader}>
+                <h5 className={styles.topic}>{item.topic} ({item.locationabbr})</h5>
+                <Link to={`edit/${item.id}`}>
+                    <span className={`material-symbols-outlined ${styles.editIcon}`}>
+                        edit_square
+                    </span>
+                </Link>
+            </div>
+            
             <div className={styles.dataDiv}>
                 <p><b>Id: </b>{item.id}</p>
                 <p><b>Indicator: </b>{item.question}</p>
                 <p><b>Data: </b> {item.datavalue ? item.datavalue : "No Data"}{item.datavalue && (item.datavalueunit !== 'Number') ? item.datavalueunit : ""}</p>
-                <p><b>{item.stratcategoryone}: </b>{item.stratone}</p>
+                {item.race && <p><b>Race/ethnicity: </b>{item.race}</p>}
+                {item.gender && <p><b>Gender: </b>{item.gender}</p>}
                 <p><b>Year: </b>{item.yearstart} - {item.yearend}</p>
             </div>
         </div>

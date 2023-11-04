@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CDI.Models;
+namespace CDI;
 
 public partial class Note
 {

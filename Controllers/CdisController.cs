@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 using CDI.Data;
+using CDI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Elfie.Model.Strings;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +17,8 @@ namespace CDI.Controllers
     [ApiController]
     public class CdisController: ControllerBase {
         // database context connected to postgresql db
-        private readonly ChronicDiseaseIndicatorContext _context;
-        public CdisController(ChronicDiseaseIndicatorContext context) {
+        private readonly ChronicdiseaseindicatorContext _context;
+        public CdisController(ChronicdiseaseindicatorContext context) {
             _context = context;
         }
         // fetches all cdi data
@@ -94,20 +96,20 @@ namespace CDI.Controllers
 
             switch (gender) {
                 case "genf":
-                    cdis = cdis.Where(c => c.Stratcategoryoneid == "GENDER" && c.Stratidone == "GENF");
+                    cdis = cdis.Where(c => c.Genderid == "GENF");
                     break;
                 case "genm":
-                    cdis = cdis.Where(c => c.Stratcategoryoneid == "GENDER" && c.Stratidone == "GENM");
+                    cdis = cdis.Where(c => c.Genderid == "GENM");
                     break;
                 case "geno":
-                    cdis = cdis.Where(c => c.Stratcategoryoneid == "GENDER" && c.Stratidone == "GENO");
+                    cdis = cdis.Where(c => c.Genderid == "GENO");
                     break;
                 default:
                     break;
             }
 
             if (!races.IsNullOrEmpty()) {
-                cdis = cdis.Where(c => c.Stratcategoryoneid == "RACE" && races.Contains(c.Stratidone.ToLower()));
+                cdis = cdis.Where(c => races.Contains(c.Raceid.ToLower()));
             }
             // Console.WriteLine("pageNumber: " + pageNumber);
             int pageSize = 10;
@@ -116,13 +118,47 @@ namespace CDI.Controllers
 
         // updates cdi data
         // returns no content
-        // PUT: "/api/cdis/1"
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Cdi>> PutCdi(int id, Cdi newCdi) {
-            // check if id matches before updating
-            if (id != newCdi.Id) {
-                return BadRequest();
-            }
+        // PUT: "/api/cdis/edit/1"
+        [HttpPut("edit/{id}")]
+        public async Task<ActionResult<Cdi>> PutCdi(
+            int id, 
+            string? locationName, 
+            string? locationAbbr, 
+            string? minYear, 
+            string? maxYear, 
+            string? category, 
+            string? categoryId, 
+            string? indicatorId, 
+            string? indicator, 
+            string? dataValue, 
+            string? dataType, 
+            string? dataTypeId, 
+            string? genderId, 
+            string? gender, 
+            string? raceId, 
+            string? race) {
+            // // check if id matches before updating
+            // if (id != newCdi.Id) {
+            //     return BadRequest();
+            // }
+            var newCdi = new Cdi {
+                Id = id,
+                Locationabbr = locationAbbr,
+                Locationname = locationName,
+                Yearstart = int.Parse(minYear),
+                Yearend = int.Parse(maxYear),
+                Topicid = categoryId,
+                Topic = category,
+                Questionid = indicatorId,
+                Question = indicator,
+                Datavalue = dataValue,
+                Datavaluetype = dataType,
+                Datavaluetypeid = dataTypeId,
+                Genderid = genderId,
+                Gender = gender,
+                Raceid = raceId,
+                Race = race
+            };
             // modify existing cdi by changing its state
             _context.Entry(newCdi).State = EntityState.Modified;
             // save changes to db context
@@ -136,16 +172,48 @@ namespace CDI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // add cdi data 
-        // POST: "/api/cdis"
-        [HttpPost]
-        public async Task<ActionResult<Cdi>> PostCdi(Cdi newCdi) {
+        // POST: "/api/cdis/add"
+        [HttpPost("add")]
+        public async Task<ActionResult<Cdi>> PostCdi(
+            string? locationName, 
+            string? locationAbbr, 
+            string? minYear, 
+            string? maxYear, 
+            string? category, 
+            string? categoryId, 
+            string? indicatorId, 
+            string? indicator, 
+            string? dataValue, 
+            string? dataType, 
+            string? dataTypeId, 
+            string? genderId, 
+            string? gender, 
+            string? raceId, 
+            string? race) {
             if (_context.Cdis == null) {
                 return Problem("Entity Set 'ChronicDiseaseIndicatorContext' is null.");
             }
+            var newCdi = new Cdi {
+                Locationabbr = locationAbbr,
+                Locationname = locationName,
+                Yearstart = minYear != null ? int.Parse(minYear) : null,
+                Yearend = maxYear != null ? int.Parse(maxYear) : null,
+                Topicid = categoryId,
+                Topic = category,
+                Questionid = indicatorId,
+                Question = indicator,
+                Datavalue = dataValue,
+                Datavaluetype = dataType,
+                Datavaluetypeid = dataTypeId,
+                Genderid = genderId,
+                Gender = gender,
+                Raceid = raceId,
+                Race = race
+            };
             // add new cdi to dbcontext
             _context.Cdis.Add(newCdi);
             // save changes 

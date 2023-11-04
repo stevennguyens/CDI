@@ -4,37 +4,12 @@ import Select, { MultiValue, SingleValue } from "react-select";
 import AsyncSelect from "react-select/async";
 import { getAllCdiCategories, getAllIndicators, getAllLocations, getFilteredCdis, getMaxYear, getMinYear } from "../../data/cdi";
 import { Button } from "../Button/Button";
-
-const sortOptions = [
-    { value: 'dateAsc', label: 'Date - Newest to Oldest' },
-    { value: 'dateDesc', label: 'Date - Oldest to Newest'},
-    { value: 'category', label: 'Category'}
-]
-
-const genderOptions = [
-    { value: 'genf', label: 'Female' },
-    { value: 'genm', label: 'Male' },
-    { value: 'geno', label: 'Other' }
-]
-
-const raceOptions = [
-    { value: 'aian', label: 'American Indian or Alaska Native' },
-    { value: 'asian', label: 'Asian' },
-    { value: 'blk', label: 'Black or African American' },
-    { value: 'his', label: 'Hispanic or Latino'},
-    { value: 'nhpi', label: 'Native Hawaiian or Other Pacific Islander'},
-    { value: 'wht', label: 'White'}
-]
-
-const emptyOption = { value: "", label: ""}
+import { sortOptions, locationOptions, genderOptions, raceOptions, categoryOptions, indicatorOptions, yearOptions } from "../../data/options";
+import { Options } from "../../types/OptionType";
 
 export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setSearchParams: any}) => {
-    const [categoryOptions, setCategoriesOptions] = useState([]);
-    const [indicatorOptions, setIndicatorOptions] = useState([]);
-    const [locationOptions, setLocationOptions] = useState([]);
-    const [yearOptions, setYearOptions] = useState<any>([]);
-    const [minYearOptions, setMinYearOptions] = useState<any>([]);
-    const [maxYearOptions, setMaxYearOptions] = useState<any>([]);
+    const [minYearOptions, setMinYearOptions] = useState<Options[]>(yearOptions);
+    const [maxYearOptions, setMaxYearOptions] = useState<Options[]>(yearOptions);
     const [isClearable, setIsClearable] = useState(true);
 
     const [locations, setLocations] = useState<Options[]>([]);
@@ -46,67 +21,25 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
     const [gender, setGender] = useState<any>("");
     const [races, setRaces] = useState<Options[]>([]);
 
-    useEffect(() => {
-        if (searchParams.toString() === "") {
-            setLocations([]);
-            setCategories([]);
-            setIndicators([]);
-            setMinYear("");
-            setMaxYear("");
-            setGender("");
-            setRaces([]);
-        }
+    
+    useEffect(() => { 
+        setLocations(convertToOption(searchParams.getAll("locations"), locationOptions) || []);
+        setCategories(convertToOption(searchParams.getAll("categories"), categoryOptions) || []);
+        setIndicators(convertToOption(searchParams.getAll("indicators"), indicatorOptions) || []);
+        setMinYear(convertToOption(searchParams.get("minYear"), yearOptions) || "");
+        setMaxYear(convertToOption(searchParams.get("maxYear"), yearOptions) || "");
+        setGender(convertToOption(searchParams.get("gender"), genderOptions) || "");
+        setRaces(convertToOption(searchParams.getAll("races"), raceOptions) || []);
+        
     }, [searchParams])
 
-    useEffect(() => {
-        const getCategories = async () => {
-            const categories = await getAllCdiCategories();
-            setCategoriesOptions(categories.map(({categoryid, categoryType} : {categoryid: string, categoryType: string}) => {
-                return {
-                    value: categoryid.toLowerCase(),
-                    label: categoryType
-                }
-            }))
-        }
+    // useEffect(() => {
+    //     console.log(searchParams)
+    // }, [])
 
-        const getIndicators = async () => {
-            const indicators = await getAllIndicators();
-            setIndicatorOptions(indicators.map(({indicatorid, indicatortype} : {indicatorid: string, indicatortype: string}) => {
-                return {
-                    value: indicatorid.toLowerCase(),
-                    label: indicatortype
-                }
-            }))
-        }
-
-        const getLocations = async () => {
-            const locations = await getAllLocations();
-            setLocationOptions(locations.map(({locationabbr, locationname} : {locationabbr: string, locationname: string}) => {
-                return {
-                    value: locationabbr.toLowerCase(),
-                    label: locationname
-                }
-            }))
-        }
-
-        const getYearOptions = async () => {
-            const minYear = await getMinYear();
-            const maxYear = await getMaxYear(); 
-            let yearOptions = [];
-            for (let i = minYear; i <= maxYear; i++) {
-                yearOptions.push({"value": i, "label": i})
-            }
-            setYearOptions(yearOptions);
-            setMinYearOptions(yearOptions);
-            setMaxYearOptions(yearOptions);
-        }
-
-        getCategories();
-        getIndicators();
-        getLocations();
-        getYearOptions();
-    }, [])
-
+    // useEffect(() => {
+    //     console.log(yearOptions)
+    // }, [yearOptions])
 
     useEffect(() => {
         setMaxYearOptions(yearOptions.map((y: Options) => {
@@ -120,7 +53,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
 
     useEffect(() => {
         setMinYearOptions(yearOptions.map((y: Options) => {
-            if (parseInt(y.value) > (parseInt(maxYear.value) || 0)) {
+            if (parseInt(y.value) > (parseInt(maxYear.value))) {
                 return {...y, "isDisabled": true}
             } else {
                 return y
@@ -128,11 +61,17 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         }))
     }, [maxYear])
 
-    type Options = {
-        value: string,
-        label: string
-    }
+    
 
+    const convertToOption = (value: number | string | string[], options: any[]) => {
+        if (Array.isArray(value)) {
+            let v = value.map((v) => options.find(o => o.value === v)) 
+            return v
+        } else {
+            return options.find(o => o.value === value)
+        }
+    }
+    
     const handleFilter = () => {        
         let params = {
             "locations": locations.map(l => l.value),
@@ -153,11 +92,11 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         <div className={style.filterDiv}>
             <div>
                 <h6>Location</h6>
-                <Select value={locations} onChange={(options: any) => setLocations(options)} isMulti options={locationOptions} placeholder="Location"/>
+                <Select value={locations} onChange={(options: any) => setLocations(options)} isMulti options={locationOptions}/>
             </div>
             <div>
                 <h6>Sort by</h6>
-                <Select onChange={(options: SingleValue<any>) => setSort(options.value)} defaultValue={sortOptions[0]} options={sortOptions}/>
+                <Select value={sort} onChange={(options: SingleValue<any>) => setSort(options)} defaultValue={sortOptions[0]} options={sortOptions}/>
             </div>
             <div className="flex">
                <h6>Year</h6>
@@ -175,11 +114,11 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
             </div>
             <div>
                 <h6>Category</h6> 
-                <Select onChange={(options: any) => setCategories(options)} isMulti options={categoryOptions}/>
+                <Select value={categories} onChange={(options: any) => setCategories(options)} isMulti options={categoryOptions}/>
             </div>
             <div>
                 <h6>Indicator</h6>
-                <Select onChange={(options: any) => setIndicators(options)} isMulti options={indicatorOptions}/>
+                <Select value={indicators} onChange={(options: any) => setIndicators(options)} isMulti options={indicatorOptions}/>
             </div>
             <div>
                 <h6>Gender</h6>
@@ -187,9 +126,9 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
             </div>
             <div>
                 <h6>Race/ethnicity</h6>
-                <Select onChange={(options: any) => setRaces(options)} isMulti options={raceOptions}/>
+                <Select value={races} onChange={(options: any) => setRaces(options)} isMulti options={raceOptions}/>
             </div>
-            <Button handleClick={handleFilter} text="Filter" classBtn="filterBtn"/>
+            <Button handleClick={handleFilter} text="Filter" classBtn="blueBtn"/>
         </div>
         
     )

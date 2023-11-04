@@ -9,6 +9,7 @@
   --dark-blue: rgb(14, 93, 135);
   --white: #fdfdfd;
   --grey: rgb(180, 180, 180);
+  --dark-grey:rgb(149, 149, 149);
   --light-grey: rgb(215, 215, 215);
   --light-grey-2: rgba(229, 229, 229, 0.553);
 }
@@ -43,4 +44,14 @@ code {
 
 input {
   outline: none
+}
+
+.material-symbols-outlined {
+  font-weight: 500;
+  color: var(--grey);
+  cursor: pointer;
+}
+
+.material-symbols-outlined:hover {
+    color: var(--dark-grey);
 }

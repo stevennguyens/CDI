@@ -1,12 +1,25 @@
-.filterDiv {
+.formDiv {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px;
+    margin-bottom: 20px;
+
+    h6 {
+        font-size: 1.1rem;
+    }
+
+    .dataDiv {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+        
+        
+    }
 
     .minmax {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px;
+        gap: 20px;
         & > div {
             margin-top: 6px;
             p {

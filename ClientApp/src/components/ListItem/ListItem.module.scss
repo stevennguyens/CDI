@@ -5,11 +5,25 @@ h2 {
 .listItem {
     background: var(--light-grey-2);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px 25px;
     margin-right: 70px;
   
     .topic {
         font-size: 1.2rem;
+    }
+
+    .listItemHeader {
+        display: flex;
+        justify-content: space-between;
+
+        .editIcon {
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--grey);
+            &:hover {
+                color: var(--dark-grey);
+            }
+        }
     }
 }
 

@@ -1,27 +1,28 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { Cdi, getCdis, getFilteredCdis } from '../../data/cdi'; 
+import { getCdis, getFilteredCdis } from '../../data/cdi'; 
+import { Cdi } from '../../types/CdiType';
 import style from './Home.module.scss';
 import { Button } from '../Button/Button';
 import { Filter } from '../Filter/Filter';
-import { useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ListItem = lazy(() => import("../ListItem/ListItem"));
 
-export const Home = () => {
+export const Home = ({searchParams, setSearchParams} : {searchParams: any, setSearchParams: any}) => {
   const [cdis, setCdis] = useState<Cdi[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchInitalCdi = async () => {
       setCdis(await getCdis());
     } 
-    fetchInitalCdi();
+    if (!searchParams.toString()) {
+      fetchInitalCdi()
+    };
   }, [])
- 
-  let [searchParams, setSearchParams] = useSearchParams();
 
-  const handleLoadMore = async () => {
+  const handleLoadMore = () => {
     let page = parseInt(searchParams.get("pageNumber") || "1") + 1;
-    setSearchParams((prev) => {
+    setSearchParams((prev: any) => {
       return {
         ...prev,
         pageNumber: page
@@ -36,7 +37,8 @@ export const Home = () => {
     }
     filterCdis();
   }, [searchParams])
- 
+
+  
   return (
     <div className={style.home}>
       <div className={style.infoDiv}>
@@ -44,6 +46,10 @@ export const Home = () => {
           <h5>Statistics</h5>
           <p><b>Most common CDI: </b></p>
         </div> */}
+
+        <Button handleClick={() => navigate('/add')} text="Add data" classBtn="addBtn"/>
+  
+        
         <div className={style.listItems}>
           {cdis.length > 0 && cdis.map((cdi: Cdi) => {
               return (

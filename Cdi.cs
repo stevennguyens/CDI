@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CDI.Models;
+namespace CDI;
 
 public partial class Cdi
 {
+    public int Id { get; set; }
+
     public int? Yearstart { get; set; }
 
     public int? Yearend { get; set; }
@@ -36,6 +38,4 @@ public partial class Cdi
     public string? Gender { get; set; }
 
     public string? Genderid { get; set; }
-
-    public int Id { get; set; }
 }

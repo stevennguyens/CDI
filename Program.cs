@@ -12,7 +12,9 @@ builder.Services.AddCors(options =>
                       policy  =>
                       {
                           policy
-                            .WithOrigins("https://localhost:7080", "https://localhost:44477");
+                            .WithOrigins("https://localhost:7080", "https://localhost:44477")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();;
                       });
 });
 
@@ -20,7 +22,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDbContext>(opt => opt.UseNpgsql(builder.Configuration["DefaultConnection"]));
-builder.Services.AddDbContext<ChronicDiseaseIndicatorContext>(opt => opt.UseNpgsql(builder.Configuration["DefaultConnection"]));
+builder.Services.AddDbContext<ChronicdiseaseindicatorContext>(opt => opt.UseNpgsql(builder.Configuration["DefaultConnection"]));
 
 var app = builder.Build();
 
@@ -35,8 +37,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
-
-// app.MapControllers().RequireCors(MyAllowSpecificOrigins);
 
 app.MapControllerRoute(
     name: "default",

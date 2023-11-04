@@ -1,20 +1,23 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CDI.Models;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace CDI.Data;
 
-public partial class ChronicDiseaseIndicatorContext : DbContext
+public partial class ChronicdiseaseindicatorContext : DbContext
 {
-    public ChronicDiseaseIndicatorContext()
+    public ChronicdiseaseindicatorContext()
     {
     }
 
-    public ChronicDiseaseIndicatorContext(DbContextOptions<ChronicDiseaseIndicatorContext> options)
+    public ChronicdiseaseindicatorContext(DbContextOptions<ChronicdiseaseindicatorContext> options)
         : base(options)
     {
     }
 
     public virtual DbSet<Cdi> Cdis { get; set; }
+
+    public virtual DbSet<Note> Notes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseNpgsql("Name=DefaultConnection");
@@ -27,9 +30,7 @@ public partial class ChronicDiseaseIndicatorContext : DbContext
 
             entity.ToTable("cdis");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Datavalue)
                 .HasMaxLength(255)
                 .HasColumnName("datavalue");
@@ -42,13 +43,15 @@ public partial class ChronicDiseaseIndicatorContext : DbContext
             entity.Property(e => e.Datavalueunit)
                 .HasMaxLength(255)
                 .HasColumnName("datavalueunit");
-            entity.Property(e => e.Geolocation)
+            entity.Property(e => e.Gender)
                 .HasMaxLength(255)
-                .HasColumnName("geolocation");
+                .HasColumnName("gender");
+            entity.Property(e => e.Genderid)
+                .HasMaxLength(255)
+                .HasColumnName("genderid");
             entity.Property(e => e.Locationabbr)
                 .HasMaxLength(2)
                 .HasColumnName("locationabbr");
-            entity.Property(e => e.Locationid).HasColumnName("locationid");
             entity.Property(e => e.Locationname)
                 .HasMaxLength(255)
                 .HasColumnName("locationname");
@@ -56,18 +59,12 @@ public partial class ChronicDiseaseIndicatorContext : DbContext
             entity.Property(e => e.Questionid)
                 .HasMaxLength(255)
                 .HasColumnName("questionid");
-            entity.Property(e => e.Stratcategoryone)
+            entity.Property(e => e.Race)
                 .HasMaxLength(255)
-                .HasColumnName("stratcategoryone");
-            entity.Property(e => e.Stratcategoryoneid)
+                .HasColumnName("race");
+            entity.Property(e => e.Raceid)
                 .HasMaxLength(255)
-                .HasColumnName("stratcategoryoneid");
-            entity.Property(e => e.Stratidone)
-                .HasMaxLength(255)
-                .HasColumnName("stratidone");
-            entity.Property(e => e.Stratone)
-                .HasMaxLength(255)
-                .HasColumnName("stratone");
+                .HasColumnName("raceid");
             entity.Property(e => e.Topic)
                 .HasMaxLength(255)
                 .HasColumnName("topic");

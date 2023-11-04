@@ -6,7 +6,8 @@
     color: var(--white);
 }
 
-.filterBtn {
+.blueBtn,
+.addBtn {
     background: var(--blue);
     &:hover {
         background: var(--dark-blue);
