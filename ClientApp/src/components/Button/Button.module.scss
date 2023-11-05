@@ -6,6 +6,12 @@
     color: var(--white);
 }
 
+.deleteBtn {
+    background: var(--red);
+    &:hover {
+        background: var(--dark-red);
+    }
+}
 .blueBtn,
 .addBtn {
     background: var(--blue);
@@ -14,7 +20,7 @@
     }
 }
 
-.loadMoreBtn {
+.greyBtn {
     background: var(--grey);
     &:hover {
         background: var(--light-grey);

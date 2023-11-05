@@ -28,7 +28,16 @@ export const Home = ({searchParams, setSearchParams} : {searchParams: any, setSe
         pageNumber: page
       }
     })
-    
+  }
+  
+  const handleLoadLess = () => {
+    let page = parseInt(searchParams.get("pageNumber") || "1") - 1;
+    setSearchParams((prev: any) => {
+      return {
+        ...prev,
+        pageNumber: page
+      }
+    })
   }
 
   useEffect(() => {
@@ -60,12 +69,27 @@ export const Home = ({searchParams, setSearchParams} : {searchParams: any, setSe
             })
           }
         </div>
+
+        <div className={style.loadBtnDiv}>
+          {cdis.length > 10 
+          && 
+          <div>
+            <Button handleClick={handleLoadLess} text="Show less" classBtn="loadBtn"/>
+          </div>
+          }
+
+          {cdis.length > 0 
+          &&
+          <div> 
+            <Button handleClick={handleLoadMore} text="Show more" classBtn="loadBtn"/>
+          </div>
+          }
+        </div> 
       </div>
       
       <Filter searchParams={searchParams} setSearchParams={setSearchParams}/> 
-      {cdis.length > 0 && <div className={style.loadMoreBtn}>
-        <Button handleClick={handleLoadMore} text="Show more" classBtn="loadMoreBtn"/>
-      </div>}
+           
+      
     </div>
   );
 

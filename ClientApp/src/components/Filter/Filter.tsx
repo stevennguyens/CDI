@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import style from "./Filter.module.scss";
+import style from "../Form/Form.module.scss";
 import Select, { MultiValue, SingleValue } from "react-select";
 import AsyncSelect from "react-select/async";
 import { getAllCdiCategories, getAllIndicators, getAllLocations, getFilteredCdis, getMaxYear, getMinYear } from "../../data/cdi";

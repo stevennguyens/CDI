@@ -1,35 +1,54 @@
-.formDiv {
+.formDiv,
+.filterDiv {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    margin-bottom: 20px;
+
+    p {
+        font-size: .8rem;
+    }
 
     h6 {
         font-size: 1.1rem;
-    }
-
-    .dataDiv {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 20px;
-        
-        
     }
 
     .minmax {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
-        & > div {
-            margin-top: 6px;
-            p {
-                font-size: .8rem;
-                line-height: .3;
-            }
+        p:not(.error) {
+            margin-bottom: 5px;
         }
-        
+    }
+}
+
+.formDiv {
+    gap: 10px;
+    margin-bottom: 20px;
+    h4 {
+        margin-top: 10px;
     }
 
+    .inputDiv {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .error {
+        color: red;
+        margin-top: 5px;
+    }
+
+    .dataDiv {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 20px;
+    }
+}
+
+.filterDiv {
+    gap: 20px;
     button {
         margin-top: 15px;
     }

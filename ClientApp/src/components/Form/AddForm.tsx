@@ -20,6 +20,6 @@ export const AddForm = () => {
     }, [searchParams])
 
     return (
-        <Form searchParams={searchParams} setSearchParams={setSearchParams} text="Add data" handleBack={() => navigate(-1)}/>
+        <Form title="Add data" setSearchParams={setSearchParams} btnText="Add" handleBack={() => navigate(-1)}/>
     )
 }

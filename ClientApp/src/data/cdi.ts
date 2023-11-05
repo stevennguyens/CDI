@@ -46,8 +46,8 @@ export const addCdi = async (searchParams: string) => {
 }
 
 // DELETE cdi
-export const deleteCdi = async (id: number) => {
-    const response = await fetch('https://localhost:7080/api/cdis',
+export const deleteCdi = async (id: string) => {
+    const response = await fetch(`https://localhost:7080/api/cdis/delete/${id}`,
     {
         method: 'DELETE'
     })

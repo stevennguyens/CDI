@@ -145,8 +145,8 @@ namespace CDI.Controllers
                 Id = id,
                 Locationabbr = locationAbbr,
                 Locationname = locationName,
-                Yearstart = int.Parse(minYear),
-                Yearend = int.Parse(maxYear),
+                Yearstart = minYear != null ? int.Parse(minYear) : null,
+                Yearend = maxYear != null ? int.Parse(maxYear) : null,
                 Topicid = categoryId,
                 Topic = category,
                 Questionid = indicatorId,
@@ -223,8 +223,8 @@ namespace CDI.Controllers
         }
 
         // delete cdi data using id
-        // DELETE: "/api/cdis/1
-        [HttpDelete("{id}")]
+        // DELETE: "/api/cdis/delete/1
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCdi(int id) {
             if (_context.Cdis == null) {
                 return NotFound();

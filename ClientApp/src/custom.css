@@ -4,6 +4,10 @@
   margin: 0;
 }
 
+p {
+  margin: 0;
+}
+
 :root {
   --blue: rgb(10, 106, 158);
   --dark-blue: rgb(14, 93, 135);
@@ -12,6 +16,8 @@
   --dark-grey:rgb(149, 149, 149);
   --light-grey: rgb(215, 215, 215);
   --light-grey-2: rgba(229, 229, 229, 0.553);
+  --red: rgb(181, 0, 0);
+  --dark-red: rgb(147, 0, 0);
 }
 
 /* Provide sufficient contrast against white background */

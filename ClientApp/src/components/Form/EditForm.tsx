@@ -1,8 +1,9 @@
 import { URLSearchParamsInit, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Form } from "./Form"
 import { useEffect, useState } from "react";
-import { getCdi, updateCdi } from "../../data/cdi";
+import { deleteCdi, getCdi, updateCdi } from "../../data/cdi";
 import React from "react";
+import { Button } from "../Button/Button";
 
 export const EditForm = () => {
     const {id} = useParams();
@@ -22,8 +23,19 @@ export const EditForm = () => {
         
     }, [searchParams])
 
+    const handleDelete = () => {
+        if (id) {
+            deleteCdi(id);
+            navigate('/');
+        }
+    }
+
     return (
-        <Form text="Edit data" searchParams={searchParams} setSearchParams={setSearchParams} handleBack={() => navigate(-1)} cdiId={id}/>
+        <div>
+            <Form title="Edit data" btnText="Save" setSearchParams={setSearchParams} handleBack={() => navigate(-1)} cdiId={id}/>
+            <Button handleClick={handleDelete} classBtn="deleteBtn" text="Delete"/>
+        </div>
+        
     )
 }
  
