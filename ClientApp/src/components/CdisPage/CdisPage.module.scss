@@ -1,0 +1,34 @@
+.home {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  gap: 10px;
+
+  .homeTopDiv {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+  }
+}
+
+.listItems {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.loadBtnDiv {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoDiv {
+  button {
+    margin-bottom: 30px;
+  }
+}
+
+

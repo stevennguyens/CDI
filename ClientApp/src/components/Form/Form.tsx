@@ -53,7 +53,7 @@ export const Form = ({title, btnText, setSearchParams, handleBack, cdiId}: {titl
             cdi.yearend && setMaxYear({value: cdi.yearend, label: cdi.yearend});
             cdi.topic && setCategory({value: cdi.topicid, label: cdi.topic})
             cdi.question && setIndicator({value: cdi.questionid, label: cdi.question});
-            cdi.datavalue && setDataValue(parseInt(cdi.datavalue));
+            cdi.datavalue && setDataValue(parseFloat(cdi.datavalue));
             cdi.datavaluetype && setDataType({value: cdi.datavaluetypeid, label: cdi.datavaluetype});
             cdi.gender && setGender({value: cdi.genderid, label: cdi.gender});
             cdi.race && setRace({value: cdi.raceid, label: cdi.race});
@@ -166,7 +166,7 @@ export const Form = ({title, btnText, setSearchParams, handleBack, cdiId}: {titl
                 <div className={style.dataDiv}>
                     <div>
                         <h6>Data value</h6>
-                        <Input handleChange={handleDataValueChange} placeholder="Enter value..."/>
+                        <Input defaultVal={dataValue} handleChange={handleDataValueChange} placeholder="Enter value..."/>
                     </div>
 
                     <div>

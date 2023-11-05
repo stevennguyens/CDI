@@ -9,8 +9,8 @@ p {
 }
 
 :root {
-  --blue: rgb(10, 106, 158);
-  --dark-blue: rgb(14, 93, 135);
+  --blue: rgb(9, 98, 146);
+  --dark-blue: rgb(13, 85, 123);
   --white: #fdfdfd;
   --grey: rgb(180, 180, 180);
   --dark-grey:rgb(149, 149, 149);
@@ -39,9 +39,9 @@ code {
   border-color: #1861ac;
 }
 
-.layout {
-  padding: 30px 50px;
-}
+/* .layout {
+  padding: 30px;
+} */
 
 .flex {
   display: flex;

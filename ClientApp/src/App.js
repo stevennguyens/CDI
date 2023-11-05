@@ -3,9 +3,10 @@ import { Route, Routes, useLocation, useNavigate, useSearchParams } from 'react-
 import AppRoutes from './AppRoutes.js';
 import { Layout } from './components/Layout.js';
 import './custom.css';
-import { Home } from "./components/Home/Home.tsx";
+import { CdisPage } from "./components/CdisPage/CdisPage.tsx";
 import { AddForm } from './components/Form/AddForm.tsx';
 import { EditForm } from './components/Form/EditForm.tsx'
+import { Home } from './components/Home/Home.tsx';
 
 const App = () => {
     const location = useLocation();
@@ -25,7 +26,8 @@ const App = () => {
         } */}
         
         <Routes>
-          <Route index={true} element={<Home searchParams={searchParams} setSearchParams={setSearchParams}/>}/>
+          <Route index={true} element={<Home/>}/>
+          <Route path="/cdis" element={<CdisPage searchParams={searchParams} setSearchParams={setSearchParams}/>}/>
           <Route path="/add" element={<AddForm/>}/>
           <Route path={`/edit/:id`} element={<EditForm/>}/>
           <Route />
