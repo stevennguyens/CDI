@@ -2,6 +2,12 @@
   display: grid;
   grid-template-columns: 80% 20%;
   gap: 10px;
+
+  .homeTopDiv {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+  }
 }
 
 .listItems {
@@ -11,7 +17,7 @@
 }
 
 .loadBtnDiv {
-  padding-top: 50px ;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;

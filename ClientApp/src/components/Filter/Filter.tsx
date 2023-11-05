@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import style from "../Form/Form.module.scss";
-import Select, { MultiValue, SingleValue } from "react-select";
-import AsyncSelect from "react-select/async";
-import { getAllCdiCategories, getAllIndicators, getAllLocations, getFilteredCdis, getMaxYear, getMinYear } from "../../data/cdi";
+import Select, { SingleValue } from "react-select";
 import { Button } from "../Button/Button";
 import { sortOptions, locationOptions, genderOptions, raceOptions, categoryOptions, indicatorOptions, yearOptions } from "../../data/options";
 import { Options } from "../../types/OptionType";
+import { Input } from "../Input/NumericInput/Input";
 
 export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setSearchParams: any}) => {
     const [minYearOptions, setMinYearOptions] = useState<Options[]>(yearOptions);
@@ -32,14 +31,6 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         setRaces(convertToOption(searchParams.getAll("races"), raceOptions) || []);
         
     }, [searchParams])
-
-    // useEffect(() => {
-    //     console.log(searchParams)
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log(yearOptions)
-    // }, [yearOptions])
 
     useEffect(() => {
         setMaxYearOptions(yearOptions.map((y: Options) => {
