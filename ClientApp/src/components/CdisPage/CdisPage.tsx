@@ -4,13 +4,14 @@ import { Cdi } from '../../types/CdiType';
 import style from './CdisPage.module.scss';
 import { Button } from '../Button/Button';
 import { Filter } from '../Filter/Filter';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Input } from '../Input/NumericInput/Input';
 
 const ListItem = lazy(() => import("../ListItem/ListItem"));
 
 export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, setSearchParams: any}) => {
-  const [id, setId] = useState<number>();
+  const {newId} = useParams();
+  const [id, setId] = useState<number>(newId ? parseInt(newId) : NaN);
   const [cdi, setCdi] = useState<Cdi | null>();
   const [cdis, setCdis] = useState<Cdi[]>([]);
   const navigate = useNavigate();
@@ -25,22 +26,14 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
 
   const handleLoadMore = () => {
     let page = parseInt(searchParams.get("pageNumber") || "1") + 1;
-    setSearchParams((prev: any) => {
-      return {
-        ...prev,
-        pageNumber: page
-      }
-    })
+    searchParams.set('pageNumber', page)
+    setSearchParams(searchParams)
   }
   
   const handleLoadLess = () => {
     let page = parseInt(searchParams.get("pageNumber") || "1") - 1;
-    setSearchParams((prev: any) => {
-      return {
-        ...prev,
-        pageNumber: page
-      }
-    })
+    searchParams.set('pageNumber', page)
+    setSearchParams(searchParams)
   }
 
   useEffect(() => {
@@ -59,7 +52,6 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
     const fetchCdiById = async () => {
       if (id && typeof id === 'number') {
         const response = await getCdi(id);
-        console.log(response)
         if (response.status >= 300 || response.status < 200) {
           setCdi(null)
         } else {
@@ -71,10 +63,6 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
     }
     fetchCdiById()
   }, [id])
-
-  useEffect(() => {
-    console.log(cdi)
-  }, [cdi])
   
   return (
     <div className={style.home}>
@@ -84,44 +72,49 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
           <p><b>Most common CDI: </b></p>
         </div> */}
         <div className={style.homeTopDiv}>
-          <Button handleClick={() => navigate('/add')} text="Add data" classBtn="addBtn"/>
+          <Button handleClick={() => navigate('/cdis/add')} text="Add data" classBtn="addBtn"/>
           <div>
-            <Input handleChange={handleIdChange} placeholder="Search by id..."/>
+            <Input defaultVal={newId ? parseInt(newId) : undefined} handleChange={handleIdChange} placeholder="Search by id..."/>
           </div>
         </div>
         
-        {
-          cdi ?
-          <ListItem key={cdi.id} item={cdi}/>
+        { id
+          ?
+            cdi ?
+            <ListItem key={cdi.id} item={cdi}/>
+            :
+            <p className={style.greyText}>No data found with id...</p>
           :
-          <div>
-            <div className={style.listItems}>
-              {cdis.length > 0 && cdis.map((cdi: Cdi) => {
-                  return (
-                    <Suspense key={cdi.id} fallback={<div>Loading...</div>}>
-                      <ListItem key={cdi.id} item={cdi}/>
-                    </Suspense>
-                  )
-                })
-              }
+            <div>
+              <div className={style.listItems}>
+                {cdis.length ? cdis.map((cdi: Cdi) => {
+                    return (
+                      <Suspense key={cdi.id} fallback={<div>Loading...</div>}>
+                        <ListItem key={cdi.id} item={cdi}/>
+                      </Suspense>
+                    )
+                  })
+                  :
+                  <p className={style.greyText}>No data found with filters...</p>
+                }
+              </div>
+
+              <div className={style.loadBtnDiv}>
+                {cdis.length > 10 
+                && 
+                <div>
+                  <Button handleClick={handleLoadLess} text="Show less" classBtn="loadBtn"/>
+                </div>
+                }
+
+                {cdis.length > 0 
+                &&
+                <div> 
+                  <Button handleClick={handleLoadMore} text="Show more" classBtn="loadBtn"/>
+                </div>
+                }
+              </div> 
             </div>
-
-            <div className={style.loadBtnDiv}>
-              {cdis.length > 10 
-              && 
-              <div>
-                <Button handleClick={handleLoadLess} text="Show less" classBtn="loadBtn"/>
-              </div>
-              }
-
-              {cdis.length > 0 
-              &&
-              <div> 
-                <Button handleClick={handleLoadMore} text="Show more" classBtn="loadBtn"/>
-              </div>
-              }
-            </div> 
-          </div>
         }
         
       </div>

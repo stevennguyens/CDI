@@ -123,7 +123,7 @@ export const Form = ({title, btnText, setSearchParams, handleBack, cdiId}: {titl
                 arrow_back
             </span>
 
-            <div>
+            <div className={style.title}>
                 <h4>{title}</h4>
                 <p>* indicates field is required</p>
             </div>

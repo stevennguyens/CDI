@@ -15,6 +15,7 @@
                 font-size: 4rem;
                 color: var(--white);
                 width: 80%;
+                font-weight: 600;
             }
 
             button {
@@ -44,12 +45,20 @@
         display: grid;
         grid-template-columns: .1fr .9fr .1fr;
         gap: 10px;
-        padding: 60px 0px;
+        padding: 90px 0px;
         color: var(--white);
 
         h2 {
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+            padding-bottom: 7px;
+            border-bottom: 3px solid var(--white);
+        }
+
+        p {
+            width: 90%;
+            font-size: 1.15rem;
         }
 
         .diseaseDivRight,
@@ -68,6 +77,7 @@
                     width: 90px;
                     top: 10%;
                     right: 50%;
+                    transform: rotate(40deg);
                 }
                 &:nth-of-type(2) {
                     bottom: 0;
@@ -81,7 +91,7 @@
             .disease {
                 &:nth-of-type(1) {
                     width: 130px;
-                    left: 60%;
+                    left: 55%;
                 }
                 &:nth-of-type(2) {
                     top: 40%;
@@ -92,11 +102,36 @@
                     bottom: 10%;
                     left: 50%;
                     width: 80px;
+                    transform: rotate(150deg);
                 }
             }
         }
         
             
+    }
+
+    .sectionThree {
+        padding: 80px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h2, p {
+            text-align: center;
+        }
+
+        h2 {
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--dark-blue);
+            padding-bottom: 50px;
+        }
+        
+        .indicatorDiv {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
     }
 
     .sectionEnd {

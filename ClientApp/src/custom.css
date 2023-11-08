@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Inter';
 }
 
 p {
@@ -10,6 +11,7 @@ p {
 
 :root {
   --blue: rgb(9, 98, 146);
+  --blue-2: rgb(15, 117, 172);
   --dark-blue: rgb(13, 85, 123);
   --white: #fdfdfd;
   --grey: rgb(180, 180, 180);

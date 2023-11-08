@@ -1,3 +1,7 @@
+.container {
+    padding: 30px;
+}
+
 .formDiv,
 .filterDiv {
     display: flex;
@@ -5,6 +9,14 @@
 
     p {
         font-size: .8rem;
+    }
+
+    h4 {
+        font-size: 2rem;
+    }
+
+    .title {
+        margin-bottom: 10px;
     }
 
     h6 {
@@ -22,7 +34,6 @@
 }
 
 .formDiv {
-    padding: 30px;
     gap: 10px;
     margin-bottom: 20px;
     h4 {
@@ -54,3 +65,4 @@
         margin-top: 15px;
     }
 }
+

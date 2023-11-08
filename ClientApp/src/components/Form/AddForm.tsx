@@ -2,24 +2,31 @@ import React, { useEffect } from "react"
 import { addCdi } from "../../data/cdi"
 import { Form } from "./Form"
 import { Cdi } from "../../types/CdiType"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom";
+import style from "./Form.module.scss";
 
 
 export const AddForm = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     useEffect(() => {
-        if (searchParams.toString()) {
-            try {
-                addCdi(searchParams.toString())
-                navigate('/');
-            } catch(e) {
-                console.log(e)
+        const addData = async () => {
+            if (searchParams.toString()) {
+                try {
+                    const res = await addCdi(searchParams.toString());
+                    const id = res.id
+                    navigate(`/cdis/${id}`);
+                } catch(e) {
+                    console.log(e)
+                }
             }
         }
+        addData()
     }, [searchParams])
 
     return (
-        <Form title="Add data" setSearchParams={setSearchParams} btnText="Add" handleBack={() => navigate(-1)}/>
+        <div className={style.container}>
+            <Form title="Add data" setSearchParams={setSearchParams} btnText="Add" handleBack={() => navigate(-1)}/>
+        </div>
     )
 }

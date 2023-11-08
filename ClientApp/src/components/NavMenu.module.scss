@@ -1,7 +1,11 @@
 ﻿header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--blue);
   color: var(--white);
   padding: 20px 40px;
+  font-weight: 700;
   a {
     text-decoration: none;
     color: inherit;
@@ -10,9 +14,22 @@
       color: var(--light-grey);
     }
   }
-  h6 {
-    font-size: 1.5rem;
-    font-weight: 900;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    h6 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 0;
+    }
+    .disease {
+      max-width: 100%;
+      height: 100%;
+      width: 20px;
+      filter: brightness(120%)
+    }
   }
 }
 

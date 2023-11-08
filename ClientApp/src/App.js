@@ -9,27 +9,15 @@ import { EditForm } from './components/Form/EditForm.tsx'
 import { Home } from './components/Home/Home.tsx';
 
 const App = () => {
-    const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
     
-    // useEffect(() => {
-    //   console.log(location.pathname);
-    // }, [location])
-   
     return (
       <Layout>
-        {/* {
-          location.key && location.key !== "default" && location.pathname !== "/" &&
-          <span onClick={handleBack} className="material-symbols-outlined">
-            arrow_back
-          </span>
-        } */}
-        
         <Routes>
           <Route index={true} element={<Home/>}/>
-          <Route path="/cdis" element={<CdisPage searchParams={searchParams} setSearchParams={setSearchParams}/>}/>
-          <Route path="/add" element={<AddForm/>}/>
-          <Route path={`/edit/:id`} element={<EditForm/>}/>
+          <Route path="/cdis/:newId?" element={<CdisPage searchParams={searchParams} setSearchParams={setSearchParams}/>}/>
+          <Route path="/cdis/add" element={<AddForm/>}/>
+          <Route path={`/cdis/edit/:id`} element={<EditForm/>}/>
           <Route />
         </Routes>
       </Layout>

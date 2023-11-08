@@ -9,6 +9,7 @@ export const getCdis = async () => {
 export const getFilteredCdis = async (searchParams: string) => {
     const response = await fetch(`https://localhost:7080/api/cdis?${searchParams}`);
     const data = await response.json();
+    console.log(data)
     return data
 }
 
@@ -41,7 +42,6 @@ export const addCdi = async (searchParams: string) => {
         method: 'POST',
     });
     const data = await response.json();
-    console.log(data)
     return data
 }
 

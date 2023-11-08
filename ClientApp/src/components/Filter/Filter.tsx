@@ -104,11 +104,11 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
                 
             </div>
             <div>
-                <h6>Category</h6> 
+                <h6>Indicator</h6> 
                 <Select value={categories} onChange={(options: any) => setCategories(options)} isMulti options={categoryOptions}/>
             </div>
             <div>
-                <h6>Indicator</h6>
+                <h6>Category</h6>
                 <Select value={indicators} onChange={(options: any) => setIndicators(options)} isMulti options={indicatorOptions}/>
             </div>
             <div>

@@ -1,0 +1,27 @@
+.modalPage {
+    background: rgba(0, 0, 0, 0.502);
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100vw;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    overflow: hidden;
+
+    .modalDiv {
+        background: var(--white);
+        border-radius: 10px;
+        padding: 40px 60px 40px 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        font-weight: 700;
+        div {
+            display: flex;
+            gap: 15px;
+        }
+    }
+}

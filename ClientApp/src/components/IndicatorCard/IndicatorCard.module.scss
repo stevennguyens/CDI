@@ -1,0 +1,39 @@
+.indicator {
+    background: var(--blue);
+    border-radius: 10px;
+    color: var(--white);
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 40px 55px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    transition: transform .2s;
+    
+    &:hover {
+        color: var(--white);
+        transform: translate(0%, -5%);
+    }
+
+    &:nth-of-type(1n) {
+        background-color: var(--blue);
+        &:hover {
+            background: var(--dark-blue)
+        }
+    }
+    &:nth-of-type(2n) {
+        background-color: var(--blue-2);
+        &:hover {
+            background: var(--blue)
+        }
+    }
+    &:nth-of-type(3n) {
+        background-color: var(--dark-blue);
+        &:hover {
+            background: var(--blue-2)
+        }
+    }
+    
+}
