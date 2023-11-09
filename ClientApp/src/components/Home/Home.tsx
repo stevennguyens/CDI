@@ -21,17 +21,17 @@ export const Home = () => {
             <section className={style.sectionTwo}>
                 <div className={style.diseaseDivLeft}>
                     <img className={style.disease} src={diseaseImg}/>
-                  
+                    <img className={style.disease} src={diseaseImg}/>
                     <img className={style.disease} src={diseaseImg}/>
                 </div>
 
-                <div>
+                <div className={style.info}>
                     <h2>What are chronic disease indicators?</h2>
                     <p>Chronic disease indicators are a set of surveillance indicators developed by consensus among the Centers for Disease Control and Prevention (CDC), the Council of State and Territorial Epidemiologists (CSTE), and the National Association of Chronic Disease Directors (NACDD). CDI enables public health professionals and policymakers to retrieve uniformly defined state-level data for chronic diseases and risk factors that have a substantial impact on public health. These indicators are essential for surveillance, prioritization, and evaluation of public health interventions.  Several of the current chronic disease indicators are available and reported on other websites, either by the data source/custodians or by categorical chronic disease programs. However, CDI is the only integrated source for comprehensive access to a wide range of indicators for the surveillance of chronic diseases, conditions, and risk factors at the state level.</p>
-
                 </div>
                 
                 <div className={style.diseaseDivRight}>
+                    <img className={style.disease} src={diseaseImg}/>
                     <img className={style.disease} src={diseaseImg}/>
                     <img className={style.disease} src={diseaseImg}/>
                     <img className={style.disease} src={diseaseImg}/>
