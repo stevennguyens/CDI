@@ -6,12 +6,15 @@ import { Link } from "react-router-dom";
 import { IndicatorCard } from "../IndicatorCard/IndicatorCard";
 import { categoryOptions } from "../../data/options";
 
+/*
+    Home page
+*/
 export const Home = () => {
     return(
         <div className={style.homeDiv}>
             <section className={style.sectionOne}>
                 <div className={style.info}>
-                    <h1>Ready to collect and report chronic disease data that make a substantial impact to public health?</h1>
+                    <h1>Ready to collect and report chronic disease data and impact our public health?</h1>
                 
                     <Link to="/cdis">
                         <Button classBtn="blueBtn" text="Get started"/>
@@ -46,7 +49,7 @@ export const Home = () => {
                 </div>
             </section>
             <section className={style.sectionEnd}>
-                All information is provided by Centers for Disease Control and Prevention. Learn more&nbsp;<a target="_blank" href="https://www.cdc.gov/cdi/overview.html">here</a> 
+                All information is provided by Centers for Disease Control and Prevention&nbsp;<a target="_blank" href="https://www.cdc.gov/cdi/overview.html">here</a> 
             </section>
         </div>
     )

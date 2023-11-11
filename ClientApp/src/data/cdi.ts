@@ -55,30 +55,35 @@ export const deleteCdi = async (id: string) => {
     return data
 }
 
+// fetches all cdi categories
 export const getAllCdiCategories = async () => {
     const response = await fetch("https://localhost:7080/api/cdis/categories");
     const data = await response.json();
     return data;
 }
 
+// fetches all cdi indicators
 export const getAllIndicators = async () => {
     const response = await fetch("https://localhost:7080/api/cdis/indicators");
     const data = await response.json();
     return data;
 }
 
+// fetches all cdi locations
 export const getAllLocations = async () => {
     const response = await fetch("https://localhost:7080/api/cdis/locations");
     const data = await response.json();
     return data;
 }
 
+// fetches all min year values of cdi
 export const getMinYear = async () => {
     const response = await fetch("https://localhost:7080/api/cdis/minYear");
     const data = await response.json();
     return data
 }
 
+// fetches all max year values of cdi
 export const getMaxYear = async () => {
     const response = await fetch("https://localhost:7080/api/cdis/maxYear");
     const data = await response.json();

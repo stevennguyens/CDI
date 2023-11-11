@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./IndicatorCard.module.scss";
 
+/*
+    Indicator Card component to display indicator
+*/
 export const IndicatorCard = ({text}:{text: string}) => {
     let arr = text.toLowerCase().replaceAll(",", "").split(" ");
     let link;

@@ -14,7 +14,7 @@
             h1 {
                 font-size: 4rem;
                 color: var(--white);
-                width: 80%;
+                width: 75%;
                 font-weight: 600;
             }
 
@@ -23,7 +23,7 @@
                 padding: 15px 40px;
             }
         }
-        margin: 30px;
+        margin: 50px;
         background-image: linear-gradient(rgba(65, 65, 65, 0.6), rgba(20, 20, 20, 0.6)), url("../../images/cdi_image_one.jpg");
         background-repeat: no-repeat;
         background-size: cover;
@@ -42,6 +42,7 @@
 
     .sectionTwo {
         background-color: var(--blue);
+        box-shadow: rgba(0, 0, 0, 0.346) 30px -50px 200px -30px inset;
         display: grid;
         grid-template-columns: .1fr .9fr .1fr;
         gap: 10px;
@@ -85,6 +86,7 @@
                     bottom: 0;
                     right: 30%;
                     width: 70px;
+                    transform: rotate(150deg);
                 }
                 &:nth-of-type(3) {
                     bottom: 20%;
@@ -131,7 +133,7 @@
         }
 
         h2 {
-            font-weight: 800;
+            font-weight: 400;
             font-size: 3rem;
             color: var(--dark-blue);
             padding-bottom: 50px;
@@ -149,10 +151,13 @@
         display: flex;
         justify-content: center;
         font-size: .9rem;
-        padding: 10px 0px;
+        margin: 10px 0px;
         a {
             text-decoration: none;
             color: var(--blue);
+            &:hover {
+                border-bottom: 1px solid var(--blue);
+            }
         }
     }
     

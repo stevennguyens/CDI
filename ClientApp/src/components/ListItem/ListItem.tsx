@@ -3,9 +3,13 @@ import { Cdi } from "../../types/CdiType";
 import styles from "./ListItem.module.scss";
 import { Link } from "react-router-dom";
 
-const ListItem = ({item, page} : {item: Cdi, page?: boolean}) => {
+/*
+    List item component for each CDI
+    @param {Cdi} item - cdi passed to display
+*/
+const ListItem = ({item} : {item: Cdi}) => {
     return (
-        <div className={page ? styles.page : styles.listItem}>
+        <div className={styles.listItem}>
             <div className={styles.listItemHeader}>
                 <h5 className={styles.topic}>{item.topic} ({item.locationabbr})</h5>
                 <Link to={`/cdis/edit/${item.id}`}>

@@ -6,11 +6,17 @@ import { sortOptions, locationOptions, genderOptions, raceOptions, categoryOptio
 import { Options } from "../../types/OptionType";
 import { Input } from "../Input/NumericInput/Input";
 
+/*
+    Filter component to filter cdis
+    @param {any} searchParams - search params from the URL
+    @param {any} setSearchParams - function that sets state of search params
+ */
 export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setSearchParams: any}) => {
     const [minYearOptions, setMinYearOptions] = useState<Options[]>(yearOptions);
     const [maxYearOptions, setMaxYearOptions] = useState<Options[]>(yearOptions);
     const [isClearable, setIsClearable] = useState(true);
 
+    // states for the filters
     const [locations, setLocations] = useState<Options[]>([]);
     const [sort, setSort] = useState<Options>(sortOptions[0]);
     const [minYear, setMinYear] = useState<any>("");
@@ -20,7 +26,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
     const [gender, setGender] = useState<any>("");
     const [races, setRaces] = useState<Options[]>([]);
 
-    
+    // if the search params is populated , set the data
     useEffect(() => { 
         setLocations(convertToOption(searchParams.getAll("locations"), locationOptions) || []);
         setCategories(convertToOption(searchParams.getAll("categories"), categoryOptions) || []);
@@ -32,6 +38,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         
     }, [searchParams])
 
+    // if the minimum year is set, disable previous minimum years from the max years option
     useEffect(() => {
         setMaxYearOptions(yearOptions.map((y: Options) => {
             if (parseInt(y.value) < (parseInt(minYear.value) || 0)) {
@@ -42,6 +49,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         }))
     }, [minYear])
 
+     // if the maximum year is set, disable future maximum years from the min years option
     useEffect(() => {
         setMinYearOptions(yearOptions.map((y: Options) => {
             if (parseInt(y.value) > (parseInt(maxYear.value))) {
@@ -53,7 +61,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
     }, [maxYear])
 
     
-
+    // converts value to type Options
     const convertToOption = (value: number | string | string[], options: any[]) => {
         if (Array.isArray(value)) {
             let v = value.map((v) => options.find(o => o.value === v)) 
@@ -63,6 +71,7 @@ export const Filter = ({searchParams, setSearchParams}: {searchParams: any, setS
         }
     }
     
+    // function sets the search params with the new filter inputs
     const handleFilter = () => {        
         let params = {
             "locations": locations.map(l => l.value),

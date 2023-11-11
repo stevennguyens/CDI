@@ -21,16 +21,7 @@ namespace CDI.Controllers
         public CdisController(ChronicdiseaseindicatorContext context) {
             _context = context;
         }
-        // fetches all cdi data
-        // returns list of cdi
-        // GET: "/api/cdis"
-        // [HttpGet]
-        // public async Task<ActionResult<IEnumerable<Cdi>>> GetCdis() {
-        //     if (_context.Cdis == null) {
-        //         return NotFound();
-        //     }
-        //     return await _context.Cdis.OrderBy(c => c.Id).Take(10).ToListAsync();
-        // }
+        
         // fetches cdi data using id
         // returns cdi 
         // GET: "/api/cdis/1"
@@ -49,11 +40,9 @@ namespace CDI.Controllers
             return cdi;
         }
 
-        // [HttpGet("filter")]
-        // public async Task<ActionResult<string[]>> GetFilteredCdis([FromQuery] string[]? location, string? sort) {
-        //     Console.WriteLine(location);
-        //     return location ?? Array.Empty<string>();
-        // }
+        // fetches cdis based on filters
+        // returns list of cdis
+        // GET: "/api/cdis?{searchParams}"
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cdi>>> GetFilteredCdis([FromQuery] string[]? locations, string? sort, int? minYear, int? maxYear, [FromQuery] string[]? categories, [FromQuery]string[]? indicators, string? gender, [FromQuery]string[]? races, int? pageNumber) {            
             if (_context.Cdis == null) {
@@ -137,10 +126,7 @@ namespace CDI.Controllers
             string? gender, 
             string? raceId, 
             string? race) {
-            // // check if id matches before updating
-            // if (id != newCdi.Id) {
-            //     return BadRequest();
-            // }
+            
             var newCdi = new Cdi {
                 Id = id,
                 Locationabbr = locationAbbr,
@@ -243,6 +229,7 @@ namespace CDI.Controllers
             return (_context.Cdis?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        // fetches distinct categories
         [HttpGet("categories")]
         public List<Category> GetCdiCategories() {
             return _context.Cdis.Select(c => new Category() {
@@ -253,6 +240,7 @@ namespace CDI.Controllers
             .ToList(); 
         }
 
+        // fetches distinct indicators
         [HttpGet("indicators")]
         public List<Indicator> GetCdiIndicators() {
             return _context.Cdis.Select(c => new Indicator() {
@@ -263,6 +251,7 @@ namespace CDI.Controllers
             .ToList(); 
         }
 
+        // fetches distinct locations
         [HttpGet("locations")]
         public List<Location> GetCdiLocations() {
             return _context.Cdis.Select(c => new Location() {  
@@ -274,11 +263,13 @@ namespace CDI.Controllers
                 .ToList();
         }
 
+        // fetches distinct min year
         [HttpGet("minYear")]
         public int GetMinYear() {
             return _context.Cdis.Select(c => c.Yearstart).Min().GetValueOrDefault();
         }
 
+        // fethces max year
         [HttpGet("maxYear")]
         public int GetMaxYear() {
             return _context.Cdis.Select(c => c.Yearend).Max().GetValueOrDefault();

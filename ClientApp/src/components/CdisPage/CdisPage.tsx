@@ -9,12 +9,19 @@ import { Input } from '../Input/NumericInput/Input';
 
 const ListItem = lazy(() => import("../ListItem/ListItem"));
 
+/*
+    Page to manage CDI data 
+    @param {any} searchParams - search params from the URL
+    @param {any} setSearchParams - function that sets state of search params
+*/
 export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, setSearchParams: any}) => {
   const {newId} = useParams();
   const [id, setId] = useState<number>(newId ? parseInt(newId) : NaN);
   const [cdi, setCdi] = useState<Cdi | null>();
   const [cdis, setCdis] = useState<Cdi[]>([]);
   const navigate = useNavigate();
+
+  // fetch the initial cdis to display 
   useEffect(() => {
     const fetchInitalCdi = async () => {
       setCdis(await getCdis());
@@ -24,18 +31,21 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
     };
   }, [])
 
+  // function shows 10 more cdis
   const handleLoadMore = () => {
     let page = parseInt(searchParams.get("pageNumber") || "1") + 1;
     searchParams.set('pageNumber', page)
     setSearchParams(searchParams)
   }
   
+  // functoin shows 10 less cdis
   const handleLoadLess = () => {
     let page = parseInt(searchParams.get("pageNumber") || "1") - 1;
     searchParams.set('pageNumber', page)
     setSearchParams(searchParams)
   }
 
+  // fetches cdis based on the filters
   useEffect(() => {
     const filterCdis = async () => {
       setCdis(await getFilteredCdis(searchParams.toString()));
@@ -43,11 +53,13 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
     filterCdis();
   }, [searchParams])
 
+  // set the id from input box
   const handleIdChange = (e: any) => {
     let val = e.target.value;
     setId(parseInt(val));
   }
 
+  // fetches cdi by id when id is changed
   useEffect(() => {
     const fetchCdiById = async () => {
       if (id && typeof id === 'number') {
@@ -67,10 +79,6 @@ export const CdisPage = ({searchParams, setSearchParams} : {searchParams: any, s
   return (
     <div className={style.home}>
       <div className={style.infoDiv}>
-        {/* <div>
-          <h5>Statistics</h5>
-          <p><b>Most common CDI: </b></p>
-        </div> */}
         <div className={style.homeTopDiv}>
           <Button handleClick={() => navigate('/cdis/add')} text="Add data" classBtn="addBtn"/>
           <div>
